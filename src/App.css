@@ -1,0 +1,20 @@
+.flex-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.link {
+    padding: 10px;
+    text-decoration: none;
+    color: white;
+}
+
+.link:hover {
+    text-decoration: underline;
+    text-decoration-color: rgb(108, 194, 74);
+}
+
+.title {
+    text-align: center;
+}

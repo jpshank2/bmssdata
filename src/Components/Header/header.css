@@ -1,0 +1,54 @@
+@media only screen and (min-device-width: 426px) {
+    .burger {
+        display: none;
+    }
+
+    #navbar {
+        display: flex;
+        flex-direction: row;
+    }
+}
+
+@media only screen and (max-device-width: 426px) { /* This is for mobile */
+    #navbar {
+        display: none;
+        flex-direction: column;
+        width: 80%;
+        position: absolute;
+        right: 0;
+        opacity: 90%;
+        text-align: right;
+    }
+}
+
+#navbar {
+    background-color: rgb(0, 61, 76);
+}
+
+.bar1, .bar2, .bar3 {
+    width: 35px;
+    height: 5px;
+    background-color: black;
+    margin: 6px 0;
+    transition: 0.4s;
+}
+
+.change>.bar1 {
+    -webkit-transform: rotate(-45deg) translate(-9px, 6px);
+    transform: rotate(-45deg) translate(-9px, 6px);
+}
+  
+.change>.bar2 {
+    opacity: 0;
+}
+  
+.change>.bar3 {
+    -webkit-transform: rotate(45deg) translate(-8px, -8px);
+    transform: rotate(45deg) translate(-8px, -8px);
+}
+
+.burger {
+    position: absolute;
+    top: 25px;
+    right: 15px;
+}
