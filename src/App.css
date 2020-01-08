@@ -18,3 +18,47 @@
 .title {
     text-align: center;
 }
+
+table {
+    margin: 0 auto;
+}
+
+td {
+    padding: 5px;
+}
+
+.fixed {
+    position: sticky;
+}
+
+.client {
+    width: 50%;
+}
+
+.office {
+    width: 20%;
+}
+
+.partner {
+    width: 30%;
+}
+
+.lost-even {
+    background-color: rgba(0, 61, 76, 0.3);
+    color: rgb(200, 0, 0);
+}
+
+.lost-odd {
+    background-color: rgba(108, 194, 74, 0.3);
+    color: rgb(200, 0, 0);
+}
+
+.active-even {
+    background-color: rgba(0, 61, 76, 0.3);
+    color: rgb(50, 100, 10);
+}
+
+.active-odd {
+    background-color: rgba(108, 194, 74, 0.3);
+    color: rgb(50, 100, 10);
+}
