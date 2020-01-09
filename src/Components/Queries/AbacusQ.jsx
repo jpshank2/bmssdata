@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 
-export default function BmssQ(props) {
+export default function AbacusQ(props) {
     let [result, setResult] = useState([])
 
     useEffect(() => {
@@ -24,13 +24,9 @@ export default function BmssQ(props) {
                         case index % 2 === 1 && result.ClientStatus === "ACTIVE":
                             style = "active-odd";
                             break;
-                        case props.activeOnly && result.ClientStatus === "LOST":
-                            style = "hidden";
-                            break;
                         default:
                             style = "active-odd";
                     }
-
                     return (
                         <tr className={style} key={result.ContIndex}>
                             <td className="client">{result.ClientName}</td>

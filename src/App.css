@@ -32,15 +32,21 @@ td {
 }
 
 .client {
-    width: 50%;
+    width: 40%;
 }
 
 .office {
     width: 20%;
+    text-align: center;
 }
 
 .partner {
     width: 30%;
+    text-align: center;
+}
+
+.active {
+    width: 10%;
 }
 
 .lost-even {
@@ -61,4 +67,8 @@ td {
 .active-odd {
     background-color: rgba(108, 194, 74, 0.3);
     color: rgb(50, 100, 10);
+}
+
+.hidden {
+    display: none;
 }

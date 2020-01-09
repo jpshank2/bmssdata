@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import BmssQ from '../Queries/BmssQ'
+import React, { useEffect, useState } from 'react';
+import BmssQ from '../Queries/BmssQ';
 
 export default function BMSSCPA() {
     const [title] = useState("BMSS CPAs & Business Advisors")
@@ -7,6 +7,14 @@ export default function BMSSCPA() {
     let [clientName, setName] = useState("")
     let [clientOffice, setOffice] = useState("*")
     let [partner, setPartner] = useState("")
+    let [page, setPage] = useState(1)
+
+    let baseUrl = url => {
+        let urlArray = url.split("")
+        urlArray.pop()        
+        return urlArray.join("")
+    }
+
     useEffect(() => {
         document.title = title
     })
@@ -18,9 +26,14 @@ export default function BMSSCPA() {
                 <thead className="fixed">
                     <tr>
                         <th className="client">Client Name
-                        <input value={clientName} style={{ marginLeft: 5 }} type="text" onChange={e => {
+                        <input style={{ marginLeft: 5 }} type="text" onChange={e => {
                                 let cName = e.target.value
-                                setName(cName)
+                                let patt = /.'/g
+                                if (patt.test(cName)) {
+                                    setName(cName.replace("'", "''"))
+                                } else {
+                                    setName(cName)
+                                }
                             }} />
                         </th>
                         <th className="office">Client Office
@@ -41,27 +54,28 @@ export default function BMSSCPA() {
                                     setPartner(e.target.value)
                                 }} />
                                 <button onClick={() => {
+                                    setPage(1)
                                     switch (true) {
                                         case clientOffice !== "*" && clientName.length === 0 && partner.length === 0:
-                                            setUrl(`http://localhost:3001/office/${clientOffice}`)
+                                            setUrl(`http://localhost:3001/office/${clientOffice}/`)
                                             break;
                                         case clientOffice === "*" && clientName.length !== 0 && partner.length === 0:
-                                            setUrl(`http://localhost:3001/client/${clientName}`)
+                                            setUrl(`http://localhost:3001/client/${clientName}/`)
                                             break;
                                         case clientOffice === "*" && clientName.length === 0 && partner.length !== 0:
-                                            setUrl(`http://localhost:3001/partner/${partner}`)
+                                            setUrl(`http://localhost:3001/partner/${partner}/`)
                                             break;
                                         case clientOffice !== "*" && clientName.length > 0 && partner.length === 0:
-                                            setUrl(`http://localhost:3001/office/${clientOffice}&/client/${clientName}`);
+                                            setUrl(`http://localhost:3001/office/${clientOffice}&/client/${clientName}/`);
                                             break;
                                         case clientOffice !== "*" && clientName.length === 0 && partner.length > 0:
-                                            setUrl(`http://localhost:3001/office/${clientOffice}&/partner/${partner}`);
+                                            setUrl(`http://localhost:3001/office/${clientOffice}&/partner/${partner}/`);
                                             break;
                                         case clientOffice === "*" && clientName.length > 0 && partner.length > 0:
-                                            setUrl(`http://localhost:3001/client/${clientName}&/partner/${partner}`);
+                                            setUrl(`http://localhost:3001/client/${clientName}&/partner/${partner}/`);
                                             break;
                                         case clientOffice !== "*" && clientName.length > 0 && partner.length > 0:
-                                            setUrl(`http://localhost:3001/client/${clientName}&/partner/${partner}&/office/${clientOffice}`);
+                                            setUrl(`http://localhost:3001/client/${clientName}&/partner/${partner}&/office/${clientOffice}/`);
                                             break;
                                         default:
                                             setUrl("http://localhost:3001/")
@@ -70,10 +84,31 @@ export default function BMSSCPA() {
                                 }
                             }>Go</button>
                         </th>
+                        <th className="active">
+                            <input type="checkbox" /> Active Clients Only
+                        </th>
                     </tr>
                 </thead>
                 <BmssQ url={url} />
             </table>
+            <footer>
+                {(page < 2) ? 
+                    <button disabled>Previous</button> : 
+                    <button onClick={() => {
+                        setPage(page - 1)
+                        setUrl(baseUrl(url) + (page - 1))
+                        window.scrollTo(0, 0)
+                    }}>Previous</button>}
+                    <button onClick={() => {
+                        setPage(page + 1)
+                        if (page === 1) {
+                            setUrl(url + page)
+                        } else {
+                            setUrl(baseUrl(url) + page)
+                        }
+                        window.scrollTo(0, 0)
+                    }}>Next</button>
+            </footer>
         </div>
     )
 }
